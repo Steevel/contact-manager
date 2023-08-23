@@ -8,7 +8,7 @@ const Contacts = () => {
         <button>
           <Link
             className="max-w-sm group flex items-center justify-between gap-3 rounded-lg border border-indigo-600 bg-indigo-600 px-4 py-2 transition-colors hover:bg-transparent focus:outline-none focus:ring"
-            to="/download"
+            to="/add"
           >
             <span className="shrink-0 rounded-full border border-current bg-white p-1 text-indigo-600 group-active:text-indigo-500">
               <AddIcon />

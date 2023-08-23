@@ -4,21 +4,20 @@ import MapIcon from "./icons/MapIcon";
 
 const Sidebar = () => {
   return (
-    <div className=" h-full flex flex-col p-1 md:p-4 gap-4 border-r-2">
-      <Link to="/" className="p-2 md:p-4 flex gap-2 rounded-md bg-gray-100">
-        <span className="hidden md:block">
-          <PhoneIcon />
-        </span>
-        Contacts
+    <div className=" h-full flex flex-col px-1 py-3 md:p-4 gap-4 border-r-2">
+      <Link
+        to="/"
+        className="p-2  flex justify-center md:justify-start gap-2 rounded-md bg-gray-100"
+      >
+        <PhoneIcon />
+        <span className="hidden md:flex md:flex-col">Contacts</span>
       </Link>
       <Link
         to="/charts"
-        className="p-2 md:p-4 flex gap-2 rounded-md bg-gray-100"
+        className="p-2 flex justify-center items-center md:justify-start gap-2 rounded-md bg-gray-100"
       >
-        <span className="hidden md:block">
-          <MapIcon />
-        </span>
-        Charts & Maps
+        <MapIcon />
+        <span className="hidden md:block">Charts & Maps</span>
       </Link>
     </div>
   );
