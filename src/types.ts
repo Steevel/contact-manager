@@ -3,6 +3,7 @@ export interface InitialState {
 }
 
 export interface Contact {
+  id:string,
   firstName: string,
   lastName: string,
   phoneNumber: string,

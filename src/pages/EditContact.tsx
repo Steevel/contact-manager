@@ -1,32 +1,32 @@
-import { useState } from "react";
-import { useAppDispatch } from "../store/hooks";
-import { addContact } from "../store/features/contactSlice";
-import { useNavigate } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
+import { useState, useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { updateContact } from "../store/features/contactSlice";
+import { useNavigate, useParams } from "react-router-dom";
 
-const AddContact = () => {
+const EditContact = () => {
   // States
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [status, setStatus] = useState("Active");
+  const [phoneNumber, setPhoneNumber] = useState("Active");
+  const [status, setStatus] = useState("");
+  const contacts = useAppSelector((state) => state.contacts.contacts);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { id } = useParams();
 
   // Functions
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const saveEdittedContact = (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
       if (firstName || lastName || phoneNumber) {
-        const newContact = {
-          id: uuidv4(),
+        const updatedContact = {
           firstName,
           lastName,
           phoneNumber,
           status,
         };
-        dispatch(addContact(newContact));
+        dispatch(updateContact({ id, updatedContact }));
         navigate("/");
       }
     } catch (e) {
@@ -34,12 +34,22 @@ const AddContact = () => {
     }
   };
 
+  useEffect(() => {
+    const contact = contacts.find((contact) => contact.id === id);
+    if (contact !== undefined) {
+      setFirstName(contact.firstName);
+      setLastName(contact.lastName);
+      setPhoneNumber(contact.phoneNumber);
+      setStatus(contact.status);
+    }
+  }, [contacts, id]);
+
   return (
     <div className="h-full p-1 md:p-3 lg:p-4">
       <div className="flex flex-col items-center justify-center h-full">
         <h1 className="pb-2 text-2xl md:text-5xl md:pb-5">Create Contact</h1>
         <div className="w-full max-w-md p-4 mx-auto rounded-md shadow-md ">
-          <form className="space-y-4" onSubmit={handleFormSubmit}>
+          <form className="space-y-4" onSubmit={saveEdittedContact}>
             <div>
               <label
                 htmlFor="firstname"
@@ -99,8 +109,8 @@ const AddContact = () => {
                     type="radio"
                     name="status"
                     value="active"
-                    defaultChecked={status === "Active"}
-                    onClick={() => setStatus("Active")}
+                    checked={status === "Active"}
+                    onChange={() => setStatus("Active")}
                     className="text-blue-500 focus:ring-blue-200"
                   />
                   <span className="ml-2">Active</span>
@@ -110,8 +120,8 @@ const AddContact = () => {
                     type="radio"
                     name="status"
                     value="inactive"
-                    defaultChecked={status === "Inactive"}
-                    onClick={() => setStatus("Inactive")}
+                    checked={status === "Inactive"}
+                    onChange={() => setStatus("Inactive")}
                     className="text-blue-500 focus:ring-blue-200"
                   />
                   <span className="ml-2">Inactive</span>
@@ -122,7 +132,7 @@ const AddContact = () => {
               type="submit"
               className="w-full px-4 py-2 text-white bg-indigo-500 rounded-md hover:bg-indigo-600 focus:ring focus:ring-blue-200"
             >
-              Save Contact
+              Save Editted Contact
             </button>
           </form>
         </div>
@@ -131,4 +141,4 @@ const AddContact = () => {
   );
 };
 
-export default AddContact;
+export default EditContact;

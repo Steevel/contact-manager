@@ -10,6 +10,7 @@ import RootLayout from "./layout/RootLayout";
 import Charts from "./pages/Charts";
 import Error from "./pages/Error";
 import AddContact from "./pages/AddContact";
+import EditContact from "./pages/EditContact";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -17,6 +18,7 @@ const router = createBrowserRouter(
       <Route index element={<Contacts />} />
       <Route path="/charts" element={<Charts />} />
       <Route path="/add" element={<AddContact />} />
+      <Route path="/edit/:id" element={<EditContact />} />
 
       {/* 404 Error Page */}
       <Route path="*" element={<Error />} />
