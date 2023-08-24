@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
 import AddIcon from "../components/icons/AddIcon";
+import { useAppSelector } from "../store/hooks";
 
 const Contacts = () => {
+  const contacts = useAppSelector((state) => state.contacts.contacts);
+  console.log("contact list page", contacts);
   return (
     <div className="h-full p-2 md:p-4">
       <div className="py-4 flex justify-center">

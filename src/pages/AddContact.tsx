@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useAppDispatch } from "../store/hooks";
+import { addContact } from "../store/features/contactSlice";
 
 const AddContact = () => {
   // States
@@ -6,6 +8,7 @@ const AddContact = () => {
   const [lastName, setLastName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [status, setStatus] = useState("Active");
+  const dispatch = useAppDispatch();
 
   // Functions
   const handleFormSubmit = (e: React.FormEvent) => {
@@ -15,6 +18,8 @@ const AddContact = () => {
       if (firstName || lastName || phoneNumber) {
         console.log("yea!");
         console.log({ firstName, lastName, phoneNumber, status });
+        const newContact = { firstName, lastName, phoneNumber, status };
+        dispatch(addContact(newContact));
       }
     } catch (e) {
       alert("Something went wrong. Please try again!");
@@ -85,6 +90,7 @@ const AddContact = () => {
                     type="radio"
                     name="status"
                     value="active"
+                    defaultChecked={status === "Active"}
                     onClick={() => setStatus("Active")}
                     className="text-blue-500 focus:ring-blue-200"
                   />
@@ -95,6 +101,7 @@ const AddContact = () => {
                     type="radio"
                     name="status"
                     value="inactive"
+                    defaultChecked={status === "Inactive"}
                     onClick={() => setStatus("Inactive")}
                     className="text-blue-500 focus:ring-blue-200"
                   />
