@@ -24,10 +24,16 @@ const Contacts = () => {
           </Link>
         </button>
       </div>
-      <div className="flex flex-wrap gap-4 justify-center h-[calc(90vh-100px)] overflow-y-scroll">
-        {contacts.map((contact) => (
-          <ContactCard key={contact.id} contact={contact} />
-        ))}
+      <div className="flex flex-wrap gap-4 justify-center items-center h-[calc(90vh-100px)] overflow-y-scroll">
+        {contacts.length > 0 ? (
+          contacts.map((contact) => (
+            <ContactCard key={contact.id} contact={contact} />
+          ))
+        ) : (
+          <div className="p-2 text-2xl text-center bg-indigo-100 rounded-md md:text-3xl">
+            Contacts Not found. Please add some contacts to display here!
+          </div>
+        )}
       </div>
     </div>
   );
