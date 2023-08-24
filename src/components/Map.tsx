@@ -1,8 +1,19 @@
+import { useQuery } from "@tanstack/react-query";
+import { CountryData } from "../types";
+import axios from "axios";
+import L from "leaflet";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import { CountryData } from "../types";
+
+import icon from "leaflet/dist/images/marker-icon.png";
+import iconShadow from "leaflet/dist/images/marker-shadow.png";
+
+const DefaultIcon = L.icon({
+  iconUrl: icon,
+  shadowUrl: iconShadow,
+});
+
+L.Marker.prototype.options.icon = DefaultIcon;
 
 const Map: React.FC = () => {
   const { data, isLoading, error } = useQuery<CountryData[]>({
